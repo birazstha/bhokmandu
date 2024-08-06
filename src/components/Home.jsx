@@ -8,7 +8,7 @@ export default function Home(params) {
 
   return (
     <>
-      <div className="grid grid-cols-3 2xl:grid-cols-4 gap-2 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2 ">
         <Suspense fallback={<p>Loading.....</p>}>
           <Await resolve={cuisines}>
             {(cuisines) =>
