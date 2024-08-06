@@ -1,6 +1,6 @@
 import {createBrowserRouter} from 'react-router-dom';
 import Page from './components/Page';
-import Home from './components/Home';
+import Home, {cuisineLoader} from './components/Home';
 import About from './components/About';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -13,6 +13,7 @@ export const router = createBrowserRouter ([
       {
         index: true,
         element: <Home />,
+        loader: cuisineLoader,
       },
       {
         path: '/login',

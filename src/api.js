@@ -1,6 +1,6 @@
 import axios from 'axios';
+import api from 'js-cookie';
 const baseUrl = process.env.REACT_APP_URL;
-
 
 export const fetchProfile = async accessToken => {
   try {
@@ -22,6 +22,15 @@ export const userLogin = async finalData => {
     const accessToken = res.data.data.accessToken;
     localStorage.setItem ('accessToken', accessToken);
     return await fetchProfile (accessToken);
+  } catch (err) {
+    console.log (err);
+  }
+};
+
+export const loadCuisines = async () => {
+  try {
+    const resData = await axios.get (`${baseUrl}/cuisines`);
+    return resData.data.data;
   } catch (err) {
     console.log (err);
   }
