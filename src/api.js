@@ -27,9 +27,9 @@ export const userLogin = async finalData => {
   }
 };
 
-export const loadCuisines = async () => {
+export const loadCuisines = async keyword => {
   try {
-    const resData = await axios.get (`${baseUrl}/cuisines`);
+    const resData = await axios.get (`${baseUrl}/cuisines?keyword=${keyword}`);
     return resData.data.data;
   } catch (err) {
     console.log (err);
