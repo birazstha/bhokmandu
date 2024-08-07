@@ -8,24 +8,24 @@ export default function Page(params) {
   const { loading } = useContext(ProfileContext);
 
   return (
-    // <>
-    //   {loading ? (
-    //     <Loader center content="Loading..." vertical size="lg" />
-    //   ) : (
-    //     <>
-    //       <Header />
-    //       <div className="p-5">
-    //         <Outlet />
-    //       </div>
-    //     </>
-    //   )}
-    // </>
-
     <>
-      <Header />
-      <div className="p-5">
-        <Outlet />
-      </div>
+      {loading ? (
+        <Loader center content="Loading..." vertical size="lg" />
+      ) : (
+        <>
+          <Header />
+          <div className="p-5">
+            <Outlet />
+          </div>
+        </>
+      )}
     </>
+
+    // <>
+    //   <Header />
+    //   <div className="p-5">
+    //     <Outlet />
+    //   </div>
+    // </>
   );
 }

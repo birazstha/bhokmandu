@@ -23,7 +23,7 @@ export default function Home(params) {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2 ">
-      <Loader center content="Loading..." vertical size="lg" />
+      {/* <Loader center content="Loading..." vertical size="lg" /> */}
         
         <Suspense fallback={<p>Searching.....</p>}>
           <Await resolve={cuisines}>
