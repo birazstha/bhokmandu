@@ -19,31 +19,34 @@ export default function Header() {
         <Link to="/">BHOKMANDU</Link>
       </div>
 
-      {profile ? (
-        <div className="flex gap-2 justify-center">
-          <Dropdown
-            renderToggle={(props, ref) => renderToggle(props, profile)}
-            placement="leftStart"
-          >
-            <Dropdown.Item as={Link} to="/profile">
-              <div className="flex gap-2 items-center">
-                <i className="fa fa-user"></i>
-                <p> Profile</p>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <div className="flex gap-2 items-center">
-                <i className="fas fa-sign-out-alt"></i>
-                <button onClick={() => logout()}>Logout</button>
-              </div>
-            </Dropdown.Item>
-          </Dropdown>
-        </div>
-      ) : (
-        <Button type="link" path="/login">
-          Login
-        </Button>
-      )}
+      <div>
+        {profile ? (
+          <div className="flex gap-2 justify-center">
+            <Dropdown
+              renderToggle={(props, ref) => renderToggle(props, profile)}
+              placement="leftStart"
+            >
+              <Dropdown.Item as={Link} to="/profile">
+                <div className="flex gap-2 items-center">
+                  <i className="fa fa-user"></i>
+                  <p> Profile</p>
+                </div>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <div className="flex gap-2 items-center">
+                  <i className="fas fa-sign-out-alt"></i>
+                  <button onClick={() => logout()}>Logout</button>
+                </div>
+              </Dropdown.Item>
+            </Dropdown>
+          </div>
+        ) : (
+          <Button type="link" path="/login">
+            Login
+          </Button>
+        )}
+        Cart
+      </div>
     </nav>
   );
 }

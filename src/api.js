@@ -1,5 +1,4 @@
 import axios from 'axios';
-import api from 'js-cookie';
 const baseUrl = process.env.REACT_APP_URL;
 
 export const fetchProfile = async accessToken => {
@@ -31,6 +30,17 @@ export const loadCuisines = async keyword => {
   try {
     const resData = await axios.get (`${baseUrl}/cuisines?keyword=${keyword}`);
     return resData.data.data;
+  } catch (err) {
+    console.log (err);
+  }
+};
+
+export const foodList = async () => {
+  try {
+    const resData = await axios.get (`${baseUrl}/cuisines`);
+    const cuisines = resData.data.data;
+    const titles = cuisines.map (cuisine => cuisine.title);
+    return titles;
   } catch (err) {
     console.log (err);
   }

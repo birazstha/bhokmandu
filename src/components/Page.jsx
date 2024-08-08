@@ -14,18 +14,11 @@ export default function Page(params) {
       ) : (
         <>
           <Header />
-          <div className="p-5">
+          <div className="p-5 mx-auto max-w-[1600px]">
             <Outlet />
           </div>
         </>
       )}
     </>
-
-    // <>
-    //   <Header />
-    //   <div className="p-5">
-    //     <Outlet />
-    //   </div>
-    // </>
   );
 }

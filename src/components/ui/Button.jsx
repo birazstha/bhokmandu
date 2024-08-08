@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../../context/cart";
 
-export default function Button({ children, type, path }) {
+export default function Button({ children, type, path, clickedAction }) {
   return type && type === "link" ? (
     <Link
       to={path}
@@ -9,6 +11,11 @@ export default function Button({ children, type, path }) {
       {children}
     </Link>
   ) : (
-    <button>{children}</button>
+    <button
+      onClick={() => clickedAction()}
+      className="bg-red-400 text-white p-2 rounded-md hover:bg-red-500 duration-200 ease-in-out"
+    >
+      {children}
+    </button>
   );
 }
