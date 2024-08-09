@@ -16,7 +16,7 @@ export default function Home(params) {
     let enteredKeyword = event.target.value;
     setKeyword(enteredKeyword);
     navigate(`/?keyword=${enteredKeyword}`);
-  });
+  }, 200);
 
   useEffect(() => {
     setLoading(true);

@@ -16,7 +16,7 @@ export default function CartItem({ handleClose, handleOpen, open }) {
             </button>
             1
             <button className="bg bg-red-500 rounded-full w-6 text-white">
-              +
+              -
             </button>
           </div>
         </div>
@@ -28,7 +28,7 @@ export default function CartItem({ handleClose, handleOpen, open }) {
             </button>
             1
             <button className="bg bg-red-500 rounded-full w-6 text-white">
-              +
+              -
             </button>
           </div>
         </div>

@@ -4,7 +4,7 @@ import CuisineItem from "./CuisineItem";
 
 export default function CuisineList({ cuisines }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2 ">
+    <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2 mx-auto justify-items-center">
       <Suspense fallback={<p>Searching.....</p>}>
         <Await resolve={cuisines}>
           {(cuisines) =>
