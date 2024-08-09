@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Button from "./ui/Button";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProfileContext } from "../context/profile-context";
-import { Avatar, Dropdown } from "rsuite";
+import { Avatar, Dropdown, Badge, ButtonToolbar, Button } from "rsuite";
+import CartItem from "../pages/Cart/CarteItem";
 
 const renderToggle = (props, profile) => (
   <div {...props} className="flex items-center">
@@ -13,13 +13,18 @@ const renderToggle = (props, profile) => (
 export default function Header() {
   const { profile, logout } = useContext(ProfileContext);
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <nav className="flex justify-between items-center border-b-2 border-red-400 p-4">
       <div className="text-3xl font-bold">
         <Link to="/">BHOKMANDU</Link>
       </div>
 
-      <div>
+      <div className="flex gap-3 items-center">
         {profile ? (
           <div className="flex gap-2 justify-center">
             <Dropdown
@@ -45,7 +50,20 @@ export default function Header() {
             Login
           </Button>
         )}
-        Cart
+
+        <Badge content={5}>
+          <i class="fas fa-cart-plus text-2xl"></i>
+        </Badge>
+
+        <ButtonToolbar>
+          <Button onClick={handleOpen}> Open</Button>
+        </ButtonToolbar>
+
+        <CartItem
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          open={open}
+        />
       </div>
     </nav>
   );
