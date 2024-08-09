@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {json} from 'react-router-dom';
 const baseUrl = process.env.REACT_APP_URL;
 
 export const fetchProfile = async accessToken => {
@@ -32,6 +33,13 @@ export const loadCuisines = async keyword => {
     return resData.data.data;
   } catch (err) {
     console.log (err);
+    if (err.code === 'ERR_NETWORK' && !err.response) {
+      console.log ('Network error: Could not connect to the server.');
+      throw json ({message: "Couldn't fetch cuisines."}, {status: 500});
+    }
+    if (err.status && err.status === 500) {
+      throw json ({message: "Couldn't fetch cuisines."}, {status: 500});
+    }
   }
 };
 

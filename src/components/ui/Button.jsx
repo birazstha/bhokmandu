@@ -13,7 +13,7 @@ export default function Button({ children, type, path, clickedAction }) {
   ) : (
     <button
       onClick={() => clickedAction()}
-      className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 duration-200 ease-in-out"
+      className="bg-primary text-white p-2 rounded-md hover:bg-red-600 duration-200 ease-in-out font-bold"
     >
       {children}
     </button>
