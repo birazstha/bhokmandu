@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { ProfileContext } from "../context/profile-context";
+import { ProfileContext } from "../../context/profile-context";
 
 export default function Profile(params) {
   const { profile } = useContext(ProfileContext);
+  console.log(profile);
   return (
     <>
       {profile && (

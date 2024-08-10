@@ -23,13 +23,17 @@ export default function Header() {
 
   return (
     <>
-      <div className={`w-full ${theme === true ? "" : "bg-[#242527]"}`}>
+      <div
+        className={`transition-colors duration-500 ${
+          theme === true ? "" : "bg-[#242527]"
+        }`}
+      >
         <nav
           className={`mx-auto max-w-[1600px] p-4 flex justify-between items-center`}
         >
           <Link to="/" className="flex gap-1 items-center">
             <img src="/bhokmandu-logo.png" alt="" className="h-[60px]" />
-            <p className={`text-2xl font-bold mt-2 ${!theme && "text-white"}`}>
+            <p className={`text-2xl font-bold mt-2 transition-colors duration-500  ${!theme && "text-white"}`}>
               BHOKMANDU
             </p>
           </Link>

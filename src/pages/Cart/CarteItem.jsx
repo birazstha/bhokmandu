@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button, Modal, Placeholder } from "rsuite";
+import { Button, Modal } from "rsuite";
 
 export default function CartItem({ handleClose, handleOpen, open }) {
   return (

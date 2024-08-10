@@ -8,17 +8,16 @@ export default function CuisineItem({ cuisine }) {
   const { theme } = useContext(ThemeContext);
 
   return (
-    // <div className="w-[350px] transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-xl rounded-lg mb-5 cursor-pointer">
     <div
       className={`w-[350px] shadow-xl rounded-lg mb-5 ${
-        !theme && "bg-[#242527]"
+        !theme && "bg-[#242527] transition-colors duration-500"
       }`}
     >
       <div className="w-full h-64 overflow-hidden rounded-lg">
         <img
           className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
           src={cuisine.image}
-          alt="Aloo Tama"
+          alt={cuisine.title}
         />
       </div>
       <div
