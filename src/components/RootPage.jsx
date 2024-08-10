@@ -12,26 +12,6 @@ export default function RootPage(params) {
 
   return (
     <div className={`flex flex-col min-h-screen ${!theme && "bg-[#18191b]"}`}>
-      {/* {loading ? (
-        <Loader
-          center
-          content="Loading..."
-          vertical
-          size="lg"
-          className={`absolute inset-0 ${!theme && "bg-[#18191b]"}`}
-        />
-      ) : (
-        <>
-          <Header />
-          <main className="flex-grow">
-            <div className="p-5 mx-auto max-w-[1600px]">
-              <Outlet />
-            </div>
-          </main>
-          <Footer />
-        </>
-      )} */}
-
       <>
         <Header />
         <main className="flex-grow">

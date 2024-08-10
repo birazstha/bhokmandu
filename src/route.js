@@ -8,6 +8,7 @@ import Error from './pages/Error';
 import ProfileRootPage from './pages/Profile/ProfileRootPage';
 import OrderHistory from './pages/Profile/OrderHistory';
 import Favorites from './pages/Profile/Favorites';
+import UserList from './pages/Users/UserList';
 
 export const router = createBrowserRouter ([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter ([
             element: <Favorites />,
           },
         ],
+      },
+      {
+        path: 'users',
+        element: <UserList />,
       },
     ],
   },

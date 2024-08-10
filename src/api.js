@@ -53,3 +53,12 @@ export const foodList = async () => {
     console.log (err);
   }
 };
+
+export const loadUsers = async () => {
+  try {
+    const resData = await axios.get (`${baseUrl}/users`);
+    return resData.data.data;
+  } catch (err) {
+    console.log (err);
+  }
+};
