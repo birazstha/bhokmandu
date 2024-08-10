@@ -9,11 +9,11 @@ export default function CuisineItem({ cuisine }) {
 
   return (
     <div
-      className={`w-[350px] shadow-xl rounded-lg mb-5 ${
+      className={`shadow-xl rounded-lg mb-5 ${
         !theme && "bg-[#242527] transition-colors duration-500"
       }`}
     >
-      <div className="w-full h-64 overflow-hidden rounded-lg cursor-pointer">
+      <div className="w-full h-64 overflow-hidden rounded-tl-lg cursor-pointer">
         <img
           className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
           src={cuisine.image}

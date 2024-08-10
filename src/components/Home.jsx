@@ -15,6 +15,7 @@ export default function Home(params) {
   const { theme } = useContext(ThemeContext);
 
   const handleSearch = debounce((event) => {
+    setCuisines([]);
     let enteredKeyword = event.target.value;
     setKeyword(enteredKeyword);
     navigate(`/?keyword=${enteredKeyword}`);
@@ -22,6 +23,7 @@ export default function Home(params) {
 
   useEffect(() => {
     setLoading(true);
+
     loadCuisines(keyword)
       .then((data) => setCuisines(data))
       .catch((error) => console.error("Error loading cuisines:", error))
@@ -31,17 +33,7 @@ export default function Home(params) {
   return (
     <>
       <Search handleSearch={handleSearch} />
-      {loading ? (
-        <Loader
-          center
-          vertical
-          content="Searching.."
-          size="lg"
-          className={`${!theme && "text-white"}`}
-        ></Loader>
-      ) : (
-        <CuisineList cuisines={cuisines} />
-      )}
+      <CuisineList cuisines={cuisines} />
     </>
   );
 }

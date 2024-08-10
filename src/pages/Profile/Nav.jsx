@@ -3,14 +3,14 @@ import { menus } from "./menu";
 
 export default function Nav(params) {
   return (
-    <ul className="p-5 w-1/4 border-r-black ">
+    <ul className="py-5 w-1/4 border-r-black ">
       {menus.map((menu) => (
         <li>
           <NavLink
             to={menu.path}
             end
             className={({ isActive }) =>
-              `${isActive ? "text-primary" : ""} flex gap-1 items-center mb-2`
+              `${isActive ? "text-primary" : ""} flex gap-1 items-center mb-5`
             }
           >
             <i className={`${menu.icon} w-[20px]`}></i>

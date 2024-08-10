@@ -18,16 +18,14 @@ export default function ProfileRootPage() {
   }, [navigate, profile]);
 
   return (
-    <div
-      className={` ${
-        theme && "border-[0.1px]"
-      } shadow-lg rounded-lg p-2 h-screen flex ${!theme && "text-white"} ${
-        !theme && "bg-[#242527]"
-      } duration-500 transition-colors `}
-    >
-      <Nav />
-      <div className={`p-5 w-3/4 border-l-2  `}>
-        <Outlet />
+    <div className={`${!theme && "text-white"} duration-500 transition-colors`}>
+      <p className="text-3xl mb-2">Account Settings</p>
+      <hr />
+      <div className="rounded-lg p-2 flex ">
+        <Nav />
+        <div className={`p-5 w-3/4 border-l-2  `}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

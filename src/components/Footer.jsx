@@ -5,9 +5,13 @@ export default function Footer(params) {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <footer class={`${theme ? "text-black" : "bg-[#242527] text-white"}  py-6`}>
+    <footer
+      class={`${
+        theme ? "text-black" : "bg-[#242527] text-white"
+      } border-t border-gray-200 py-6`}
+    >
       <div class="container mx-auto text-center">
-        <p class="text-sm">&copy; 2024 Khanamandu. All rights reserved.</p>
+        <p class="text-sm">&copy; 2024 Bhokmandu. All rights reserved.</p>
         <div class="mt-4">
           <a
             href="/"

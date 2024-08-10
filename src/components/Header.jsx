@@ -36,7 +36,7 @@ export default function Header() {
                 !theme && "text-white"
               }`}
             >
-              KHANAMANDU
+              BHOKMANDU
             </p>
           </Link>
 
@@ -53,7 +53,7 @@ export default function Header() {
               <div className="flex gap-2 justify-center">
                 <Dropdown
                   renderToggle={(props, ref) => renderToggle(props, profile)}
-                  placement="bottomStart"
+                  placement="leftStart"
                 >
                   <Dropdown.Item as={Link} to="/profile">
                     <div className="flex gap-2 items-center">
@@ -61,6 +61,7 @@ export default function Header() {
                       <p> Profile</p>
                     </div>
                   </Dropdown.Item>
+                  
                   <Dropdown.Item>
                     <div className="flex gap-2 items-center">
                       <i className="fas fa-sign-out-alt"></i>
