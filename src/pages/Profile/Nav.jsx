@@ -10,10 +10,10 @@ export default function Nav(params) {
             to={menu.path}
             end
             className={({ isActive }) =>
-              `${isActive ? "text-red-700" : ""} flex gap-1 items-center`
+              `${isActive ? "text-primary" : ""} flex gap-1 items-center mb-2`
             }
           >
-            <i className={menu.icon}></i>
+            <i className={`${menu.icon} w-[20px]`}></i>
             <p>{menu.title}</p>
           </NavLink>
         </li>

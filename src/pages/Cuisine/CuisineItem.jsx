@@ -13,7 +13,7 @@ export default function CuisineItem({ cuisine }) {
         !theme && "bg-[#242527] transition-colors duration-500"
       }`}
     >
-      <div className="w-full h-64 overflow-hidden rounded-lg">
+      <div className="w-full h-64 overflow-hidden rounded-lg cursor-pointer">
         <img
           className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
           src={cuisine.image}

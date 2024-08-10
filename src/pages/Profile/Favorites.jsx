@@ -1,3 +1,3 @@
 export default function Favorites(params) {
-  return "favorites";
+  return "No items found.";
 }

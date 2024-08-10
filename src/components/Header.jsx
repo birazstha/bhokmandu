@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ProfileContext } from "../context/profile-context";
-import { Avatar, Dropdown, Badge, ButtonToolbar, Button, Toggle } from "rsuite";
+import { Avatar, Dropdown, Toggle } from "rsuite";
 import Btn from "../components/ui/Button";
 import CartItem from "../pages/Cart/CarteItem";
 import { ThemeContext } from "../context/theme-cart";
@@ -25,25 +25,35 @@ export default function Header() {
     <>
       <div
         className={`transition-colors duration-500 ${
-          theme === true ? "" : "bg-[#242527]"
-        }`}
+          theme === true ? "bg-white" : "bg-[#242527]"
+        } fixed top-0 left-0 w-full z-50 shadow-md `}
       >
-        <nav
-          className={`mx-auto max-w-[1600px] p-4 flex justify-between items-center`}
-        >
+        <nav className="mx-auto max-w-[1600px] p-3 flex justify-between items-center">
           <Link to="/" className="flex gap-1 items-center">
             <img src="/bhokmandu-logo.png" alt="" className="h-[60px]" />
-            <p className={`text-2xl font-bold mt-2 transition-colors duration-500  ${!theme && "text-white"}`}>
-              BHOKMANDU
+            <p
+              className={`text-2xl font-bold mt-2 transition-colors duration-500  ${
+                !theme && "text-white"
+              }`}
+            >
+              KHANAMANDU
             </p>
           </Link>
 
           <div className="flex gap-3 items-center">
+            <Toggle
+              size="lg"
+              onClick={changeTheme}
+              checkedChildren={<i className="fa fa-sun"></i>}
+              unCheckedChildren={<i class="far fa-moon"></i>}
+              defaultChecked={theme}
+            />
+
             {profile ? (
               <div className="flex gap-2 justify-center">
                 <Dropdown
                   renderToggle={(props, ref) => renderToggle(props, profile)}
-                  placement="leftStart"
+                  placement="bottomStart"
                 >
                   <Dropdown.Item as={Link} to="/profile">
                     <div className="flex gap-2 items-center">
@@ -70,14 +80,6 @@ export default function Header() {
                 <i className="fas fa-cart-plus text-2xl text-primary"></i>
               </button>
             </Badge> */}
-
-            <Toggle
-              size="lg"
-              onClick={changeTheme}
-              checkedChildren={<i className="fa fa-sun"></i>}
-              unCheckedChildren={<i class="far fa-moon"></i>}
-              defaultChecked={theme}
-            />
 
             <CartItem
               handleOpen={handleOpen}
