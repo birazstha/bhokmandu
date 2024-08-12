@@ -1,18 +1,19 @@
-import {createBrowserRouter} from 'react-router-dom';
-import Page from './components/RootPage';
-import Home from './components/Home';
-import About from './components/About';
-import Login from './pages/Login';
-import Profile from './pages/Profile/Profile';
-import Error from './pages/Error';
-import ProfileRootPage from './pages/Profile/ProfileRootPage';
-import OrderHistory from './pages/Profile/OrderHistory';
-import Favorites from './pages/Profile/Favorites';
-import UserList from './pages/Users/UserList';
+import { createBrowserRouter } from "react-router-dom";
+import Page from "./components/RootPage";
+import Home from "./components/Home";
+import About from "./components/About";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile/Profile";
+import Error from "./pages/Error";
+import ProfileRootPage from "./pages/Profile/ProfileRootPage";
+import OrderHistory from "./pages/Profile/OrderHistory";
+import Favorites from "./pages/Profile/Favorites";
+import UserList from "./pages/Users/UserList";
+import Appearance from "./pages/Profile/Appearance";
 
-export const router = createBrowserRouter ([
+export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Page />,
     errorElement: <Error />,
     children: [
@@ -21,15 +22,15 @@ export const router = createBrowserRouter ([
         element: <Home />,
       },
       {
-        path: 'login',
+        path: "login",
         element: <Login />,
       },
       {
-        path: 'about',
+        path: "about",
         element: <About />,
       },
       {
-        path: 'profile',
+        path: "profile",
         element: <ProfileRootPage />,
         children: [
           {
@@ -37,17 +38,21 @@ export const router = createBrowserRouter ([
             element: <Profile />,
           },
           {
-            path: 'orders',
+            path: "orders",
             element: <OrderHistory />,
           },
           {
-            path: 'favorites',
+            path: "favorites",
             element: <Favorites />,
+          },
+          {
+            path: "appearance",
+            element: <Appearance />,
           },
         ],
       },
       {
-        path: 'users',
+        path: "users",
         element: <UserList />,
       },
     ],

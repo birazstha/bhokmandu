@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ProfileContext } from "../context/profile-context";
-import { Avatar, Dropdown, Toggle } from "rsuite";
+import { Avatar, Badge, Dropdown, Toggle } from "rsuite";
 import Btn from "../components/ui/Button";
-import CartItem from "../pages/Cart/CarteItem";
+import CartItem from "../pages/Cart/CartItem";
 import { ThemeContext } from "../context/theme-cart";
+import { CartContext } from "../context/cart";
 
 const renderToggle = (props, profile) => (
   <div {...props} className="flex items-center">
@@ -15,6 +16,7 @@ const renderToggle = (props, profile) => (
 export default function Header() {
   const { profile, logout } = useContext(ProfileContext);
   const { theme, changeTheme } = useContext(ThemeContext);
+  const { cart } = useContext(CartContext);
 
   const [open, setOpen] = useState(false);
 
@@ -41,13 +43,25 @@ export default function Header() {
           </Link>
 
           <div className="flex gap-3 items-center">
-            <Toggle
+            {/* <Toggle
               size="lg"
               onClick={changeTheme}
               checkedChildren={<i className="fa fa-sun"></i>}
               unCheckedChildren={<i class="far fa-moon"></i>}
               defaultChecked={theme}
+            /> */}
+
+            <CartItem
+              handleOpen={handleOpen}
+              handleClose={handleClose}
+              open={open}
             />
+
+            <Badge content={cart ? cart.length : "0"}>
+              <button onClick={handleOpen}>
+                <i className="fas fa-cart-plus text-2xl text-primary"></i>
+              </button>
+            </Badge>
 
             {profile ? (
               <div className="flex gap-2 justify-center">
@@ -61,7 +75,7 @@ export default function Header() {
                       <p> Profile</p>
                     </div>
                   </Dropdown.Item>
-                  
+
                   <Dropdown.Item>
                     <div className="flex gap-2 items-center">
                       <i className="fas fa-sign-out-alt"></i>
@@ -75,18 +89,6 @@ export default function Header() {
                 Login
               </Btn>
             )}
-
-            {/* <Badge content={5}>
-              <button onClick={handleOpen}>
-                <i className="fas fa-cart-plus text-2xl text-primary"></i>
-              </button>
-            </Badge> */}
-
-            <CartItem
-              handleOpen={handleOpen}
-              handleClose={handleClose}
-              open={open}
-            />
           </div>
         </nav>
       </div>

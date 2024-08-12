@@ -29,9 +29,7 @@ export default function CuisineItem({ cuisine }) {
         <p className="font-bold w-[50%] text-center">{`Rs.${cuisine.price}/-`}</p>
         <p className="text-center">{cuisine.description}</p>
         <p className="mt-2">
-          <Button clickedAction={() => addToCart(cuisine.id)}>
-            Add To Cart
-          </Button>
+          <Button clickedAction={() => addToCart(cuisine)}>Add To Cart</Button>
         </p>
       </div>
     </div>
