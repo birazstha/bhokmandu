@@ -1,46 +1,73 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { ProfileContext } from "./profile-context";
 
 export const CartContext = createContext({
   cart: [],
   addToCart: () => {},
+  updateCart: () => {},
 });
 
 export default function CartContextProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const { profile } = useContext(ProfileContext);
 
   const addToCart = (cuisine) => {
-    setCart((prevCart) => {
-      if (Array.isArray(prevCart)) {
-        const test = prevCart.find((cui) => cui.id === cuisine.id);
+    if (!profile) {
+      return (window.location.href = "/login");
+    }
 
-        if (test !== undefined) {
-          return prevCart.map((item) =>
-            item.id === cuisine.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          );
-        } else {
-          return [
-            ...prevCart,
-            {
-              id: cuisine.id,
-              title: cuisine.title,
-              rate: cuisine.price,
-              quantity: 1,
-            },
-          ];
-        }
+    setCart((prevCart) => {
+      const test = prevCart.find((cui) => cui.id === cuisine.id);
+
+      if (test !== undefined) {
+        return prevCart.map((item) =>
+          item.id === cuisine.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [
+          ...prevCart,
+          {
+            id: cuisine.id,
+            title: cuisine.title,
+            rate: cuisine.price,
+            quantity: 1,
+          },
+        ];
       }
     });
 
     toast.success("Item has been added");
   };
 
-  console.log(cart);
+  const updateCart = (operation, cuisineId) => {
+    setCart((prevCart) => {
+      if (operation === "add") {
+        return prevCart.map((item) =>
+          item.id === cuisineId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else if (operation === "remove") {
+        let count = prevCart.find((cuisine) => cuisine.id === cuisineId);
+
+        if (count.quantity === 1) {
+          return prevCart.filter((cuisine) => cuisine.id !== cuisineId);
+        }
+
+        return prevCart.map((item) =>
+          item.id === cuisineId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      }
+    });
+  };
 
   return (
-    <CartContext.Provider value={{ addToCart, cart }}>
+    <CartContext.Provider value={{ addToCart, cart, updateCart }}>
       {children}
     </CartContext.Provider>
   );
