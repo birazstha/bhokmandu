@@ -15,21 +15,22 @@ export default function CartItem({ handleClose, handleOpen, open }) {
           cart.map((item) => (
             <div className="flex justify-between mb-3">
               <p>
-                {item.title} - {item.quantity} X Rs.{item.rate} /-{" "}
+                {item.title} - {item.quantity} X Rs. {item.rate} /-
               </p>
               <div className="flex gap-2">
-                <button
-                  onClick={() => updateCart("add", item.id)}
-                  className="bg bg-red-500 rounded-full w-6 text-white"
-                >
-                  +
-                </button>
-                {item.quantity}
                 <button
                   onClick={() => updateCart("remove", item.id)}
                   className="bg bg-red-500 rounded-full w-6 text-white"
                 >
-                  -
+                  <i className="fa fa-minus"></i>
+                </button>
+
+                {item.quantity}
+                <button
+                  onClick={() => updateCart("add", item.id)}
+                  className="bg bg-red-500 rounded-full w-6 text-white"
+                >
+                  <i className="fa fa-plus"></i>
                 </button>
               </div>
             </div>
@@ -38,18 +39,18 @@ export default function CartItem({ handleClose, handleOpen, open }) {
           <p className="text-center text-red-500">No items in cart</p>
         )}
         <p className="text-end font-bold text-xl">
-          Rs. {cart.reduce((a, b) => a + b.rate, 0)}/-
+          Rs. {cart.reduce((a, b) => a + b.grand_total, 0)}/-
         </p>
       </Modal.Body>
       <Modal.Footer>
         <Button
-          disabled={cart.length ===0 ? true : false}
+          disabled={cart.length === 0 ? true : false}
           onClick={handleClose}
           appearance="primary"
         >
-          Checkout
+          Proceed to Checkout
         </Button>
-        <Button onClick={handleClose} appearance="subtle">
+        <Button onClick={handleClose} appearance="default">
           Cancel
         </Button>
       </Modal.Footer>

@@ -23,7 +23,11 @@ export default function CartContextProvider({ children }) {
       if (test !== undefined) {
         return prevCart.map((item) =>
           item.id === cuisine.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                grand_total: item.rate * (item.quantity + 1),
+              }
             : item
         );
       } else {
@@ -34,20 +38,27 @@ export default function CartContextProvider({ children }) {
             title: cuisine.title,
             rate: cuisine.price,
             quantity: 1,
+            grand_total: cuisine.price,
           },
         ];
       }
     });
 
-    toast.success("Item has been added");
+    toast.success("Cuisine added to cart");
   };
+
+  console.log(cart);
 
   const updateCart = (operation, cuisineId) => {
     setCart((prevCart) => {
       if (operation === "add") {
         return prevCart.map((item) =>
           item.id === cuisineId
-            ? { ...item, quantity: item.quantity + 1 }
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                grand_total: item.rate * (item.quantity + 1),
+              }
             : item
         );
       } else if (operation === "remove") {
@@ -59,7 +70,11 @@ export default function CartContextProvider({ children }) {
 
         return prevCart.map((item) =>
           item.id === cuisineId
-            ? { ...item, quantity: item.quantity - 1 }
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+                grand_total: item.grand_total - item.rate,
+              }
             : item
         );
       }
