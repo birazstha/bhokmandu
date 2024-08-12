@@ -10,6 +10,7 @@ import OrderHistory from "./pages/Profile/OrderHistory";
 import Favorites from "./pages/Profile/Favorites";
 import UserList from "./pages/Users/UserList";
 import Appearance from "./pages/Profile/Appearance";
+import Checkout from "./pages/Cart/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "users",
         element: <UserList />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
     ],
   },

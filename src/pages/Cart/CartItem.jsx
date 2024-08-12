@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { Button, Modal } from "rsuite";
+import { Modal, Button } from "rsuite";
 import { CartContext } from "../../context/cart";
+import Btn from "../../components/ui/Button";
 
 export default function CartItem({ handleClose, handleOpen, open }) {
   const { cart, updateCart } = useContext(CartContext);
@@ -43,13 +44,15 @@ export default function CartItem({ handleClose, handleOpen, open }) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button
+        <Btn
+          type="link"
+          path="/checkout"
           disabled={cart.length === 0 ? true : false}
           onClick={handleClose}
           appearance="primary"
         >
           Proceed to Checkout
-        </Button>
+        </Btn>
         <Button onClick={handleClose} appearance="default">
           Cancel
         </Button>
