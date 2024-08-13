@@ -43,14 +43,6 @@ export default function Header() {
           </Link>
 
           <div className="flex gap-3 items-center">
-            {/* <Toggle
-              size="lg"
-              onClick={changeTheme}
-              checkedChildren={<i className="fa fa-sun"></i>}
-              unCheckedChildren={<i class="far fa-moon"></i>}
-              defaultChecked={theme}
-            /> */}
-
             <CartItem
               handleOpen={handleOpen}
               handleClose={handleClose}
@@ -73,6 +65,19 @@ export default function Header() {
                     <div className="flex gap-2 items-center">
                       <i className="fa fa-user"></i>
                       <p> Profile</p>
+                    </div>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item style={{ width: 120 }}>
+                    <div className="flex gap-2 items-center">
+                      <i className="fa fa-palette"></i>
+                      <Toggle
+                        size="md"
+                        onClick={changeTheme}
+                        checkedChildren={<i className="fa fa-sun"></i>}
+                        unCheckedChildren={<i class="far fa-moon"></i>}
+                        defaultChecked={theme}
+                      />
                     </div>
                   </Dropdown.Item>
 

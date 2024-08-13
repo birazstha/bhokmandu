@@ -47,7 +47,6 @@ export default function CartContextProvider({ children }) {
     toast.success("Cuisine added to cart");
   };
 
-  console.log(cart);
 
   const updateCart = (operation, cuisineId) => {
     setCart((prevCart) => {

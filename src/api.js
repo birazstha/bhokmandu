@@ -64,18 +64,17 @@ export const loadUsers = async () => {
 };
 
 export const checkoutApi = async (values, cart) => {
-  console.log(values, cart);
-
   try {
     let accessToken = localStorage.getItem("accessToken");
 
     const data = {
       cuisines: cart,
-      total_amount: 1500,
+      total_amount: cart.reduce((a, b) => a + b.grand_total, 0),
       payment_method: values.payment_method,
       delivery_address: values.delivery_address,
       special_instructions: values.special_instructions,
     };
+
     const resData = await axios.post(`${baseUrl}/order`, data, {
       headers: {
         Authorization: `Bearer ${accessToken} `,

@@ -1,15 +1,18 @@
-import { useContext } from "react";
-import { Button, Radio, RadioGroup } from "rsuite";
+import { useContext, useState } from "react";
+import { Button, Loader, Radio, RadioGroup } from "rsuite";
 import { CartContext } from "../../context/cart";
 import { useFormik } from "formik";
 import { checkoutSchema } from "../../schema/checkout-form";
 import { Form, redirect, useNavigate } from "react-router-dom";
 import { checkoutApi } from "../../api";
 import toast from "react-hot-toast";
+import { ThemeContext } from "../../context/theme-cart";
 
 export default function Checkout(params) {
   const { cart } = useContext(CartContext);
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
+  const [submitting, setSubmitting] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -19,6 +22,7 @@ export default function Checkout(params) {
     },
     validationSchema: checkoutSchema,
     onSubmit: async (values) => {
+      setSubmitting(true);
       const result = await checkoutApi(values, cart);
       if (result === 200) {
         toast.success("Your order has been placed.");
@@ -29,7 +33,7 @@ export default function Checkout(params) {
 
   return (
     <>
-      <p className="text-3xl mb-2">Checkout</p>
+      <p className={`text-3xl mb-2 ${!theme && "text-white"}`}>Checkout</p>
       <hr />
 
       <div className="flex flex-col md:flex-row gap-4 p-4">
@@ -37,7 +41,12 @@ export default function Checkout(params) {
           <Form className="space-y-4" onSubmit={formik.handleSubmit}>
             {/* Delivery Address */}
             <div>
-              <label htmlFor="" className="block text-sm font-bold mb-2">
+              <label
+                htmlFor=""
+                className={`block text-sm font-bold mb-2 ${
+                  !theme && "text-white"
+                } duration-500`}
+              >
                 Delivery Address
                 <span className="text-red-500"> *</span>
               </label>
@@ -57,7 +66,12 @@ export default function Checkout(params) {
 
             {/* Special Instructions */}
             <div>
-              <label htmlFor="" className="block text-sm mb-2 font-bold">
+              <label
+                htmlFor=""
+                className={`block text-sm font-bold mb-2 ${
+                  !theme && "text-white"
+                } duration-500`}
+              >
                 Special Instructions
               </label>
               <textarea
@@ -74,16 +88,22 @@ export default function Checkout(params) {
             </div>
 
             <div>
-              <label htmlFor="" className="font-bold">
+              <label
+                htmlFor=""
+                className={`block text-sm font-bold mb-2 ${
+                  !theme && "text-white"
+                } duration-500`}
+              >
                 Payment Method
                 <span className="text-red-500"> *</span>
               </label>
               <RadioGroup
                 name="payment_method"
-                value={formik.values.payment_method}
                 onChange={(value) =>
                   formik.setFieldValue("payment_method", value)
                 }
+                defaultValue="cod"
+                className={!theme && "text-white"}
               >
                 <Radio value="cod">Cash On Delivery</Radio>
                 <Radio value="esewa">E-sewa</Radio>
@@ -93,12 +113,22 @@ export default function Checkout(params) {
 
             <div>
               <Button appearance="primary" type="submit">
-                Confirm
+                {submitting ? (
+                  <>
+                    <Loader size="sm" style={{ width: 45 }} />
+                  </>
+                ) : (
+                  "Confirm"
+                )}
               </Button>
             </div>
           </Form>
         </div>
-        <div className="w-full md:w-1/4 bg-gray-50 p-4 rounded-md shadow-md">
+        <div
+          className={`w-full md:w-1/4  ${
+            !theme ? "bg-[#242527] text-white" : "bg-gray-50"
+          } p-4 rounded-md shadow-md duration-500`}
+        >
           <p className="font-bold text-lg mb-4">My Bag</p>
           <div className="space-y-2">
             {cart.map((cuisine) => (
@@ -119,7 +149,7 @@ export default function Checkout(params) {
             </div>
             <div className="flex justify-between items-center">
               <p className="font-semibold">Delivery Charge</p>
-              <p>Free</p>
+              <p>-</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="font-semibold text-lg">Grand Total</p>

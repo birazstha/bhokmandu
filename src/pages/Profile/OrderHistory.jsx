@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ordersApi } from "../../api";
 import { Skeleton } from "@mui/material";
+import { ThemeContext } from "@emotion/react";
 
 export default function OrderHistory(params) {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true); // Start with loading true
+  const [loading, setLoading] = useState(true);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     ordersApi()
@@ -16,20 +18,20 @@ export default function OrderHistory(params) {
     <div>
       {loading ? (
         <div>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
-          <Skeleton  width="100%" height={30}/>
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
+          <Skeleton width="100%" height={30} />
         </div> // Show a loading message or spinner
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200">
+          <table className="min-w-full bg-white border border-gray-200  ">
             <thead>
               <tr>
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
