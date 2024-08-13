@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ProfileContext } from "./profile-context";
 
@@ -6,10 +6,19 @@ export const CartContext = createContext({
   cart: [],
   addToCart: () => {},
   updateCart: () => {},
+  flushCartItems: () => {},
 });
 
 export default function CartContextProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    return cartItems && cartItems.length > 0 ? JSON.parse(cartItems) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+  }, [cart]);
+
   const { profile } = useContext(ProfileContext);
 
   const addToCart = (cuisine) => {
@@ -47,7 +56,6 @@ export default function CartContextProvider({ children }) {
     toast.success("Cuisine added to cart");
   };
 
-
   const updateCart = (operation, cuisineId) => {
     setCart((prevCart) => {
       if (operation === "add") {
@@ -80,10 +88,15 @@ export default function CartContextProvider({ children }) {
     });
   };
 
+  const flushCartItems = () => {
+    setCart([]);
+  };
+
   return (
-    <CartContext.Provider value={{ addToCart, cart, updateCart }}>
+    <CartContext.Provider
+      value={{ addToCart, cart, updateCart, flushCartItems }}
+    >
       {children}
     </CartContext.Provider>
   );
 }
-

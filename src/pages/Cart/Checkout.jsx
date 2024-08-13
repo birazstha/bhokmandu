@@ -3,13 +3,13 @@ import { Button, Loader, Radio, RadioGroup } from "rsuite";
 import { CartContext } from "../../context/cart";
 import { useFormik } from "formik";
 import { checkoutSchema } from "../../schema/checkout-form";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { checkoutApi } from "../../api";
 import toast from "react-hot-toast";
 import { ThemeContext } from "../../context/theme-cart";
 
 export default function Checkout(params) {
-  const { cart } = useContext(CartContext);
+  const { cart, flushCartItems } = useContext(CartContext);
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const [submitting, setSubmitting] = useState(false);
@@ -22,11 +22,23 @@ export default function Checkout(params) {
     },
     validationSchema: checkoutSchema,
     onSubmit: async (values) => {
-      setSubmitting(true);
-      const result = await checkoutApi(values, cart);
-      if (result === 200) {
-        toast.success("Your order has been placed.");
-        navigate("/profile/orders");
+      try {
+        setSubmitting(true);
+        const result = await checkoutApi(values, cart);
+        if (result === 200) {
+          toast('Your order has been placed!!', {
+            icon: '🥳😋',
+          });
+
+          localStorage.removeItem("cartItems");
+          flushCartItems();
+          navigate("/profile/orders");
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        toast.error("There was an issue with your submission.");
+      } finally {
+        setSubmitting(false);
       }
     },
   });
@@ -112,6 +124,7 @@ export default function Checkout(params) {
             </div>
 
             <div>
+              {submitting}
               <Button appearance="primary" type="submit">
                 {submitting ? (
                   <>
