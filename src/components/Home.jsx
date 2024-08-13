@@ -23,7 +23,6 @@ export default function Home(params) {
 
   useEffect(() => {
     setLoading(true);
-
     loadCuisines(keyword)
       .then((data) => setCuisines(data))
       .catch((error) => console.error("Error loading cuisines:", error))
