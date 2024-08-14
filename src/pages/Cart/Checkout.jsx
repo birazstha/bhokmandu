@@ -26,8 +26,8 @@ export default function Checkout(params) {
         setSubmitting(true);
         const result = await checkoutApi(values, cart);
         if (result === 200) {
-          toast('Your order has been placed!!', {
-            icon: '🥳😋',
+          toast("Your order has been placed!!", {
+            icon: "🥳😋",
           });
 
           localStorage.removeItem("cartItems");
@@ -124,8 +124,7 @@ export default function Checkout(params) {
             </div>
 
             <div>
-              {submitting}
-              <Button appearance="primary" type="submit">
+              <Button appearance="primary" type="submit" disabled={submitting}>
                 {submitting ? (
                   <>
                     <Loader size="sm" style={{ width: 45 }} />
@@ -142,19 +141,22 @@ export default function Checkout(params) {
             !theme ? "bg-[#242527] text-white" : "bg-gray-50"
           } p-4 rounded-md shadow-md duration-500`}
         >
-          <p className="font-bold text-lg mb-4">My Bag</p>
-          <div className="space-y-2">
+          <p className="font-bold text-lg mb-4 border-b-2">My Bag</p>
+          <div className="space-y-2 ">
             {cart.map((cuisine) => (
               <div
                 key={cuisine.id}
                 className="flex justify-between items-center"
               >
-                <p>{cuisine.quantity} X</p>
                 <p>{cuisine.title}</p>
-                <p>{cuisine.rate}</p>
+                <p>
+                  {cuisine.quantity} X {cuisine.rate}
+                </p>
+                <p>Rs.{cuisine.quantity * cuisine.rate}/-</p>
               </div>
             ))}
           </div>
+          <div className="border-b-2 my-4"></div>
           <div className="mt-4 space-y-2">
             <div className="flex justify-between items-center">
               <p className="font-semibold">SUB TOTAL</p>
