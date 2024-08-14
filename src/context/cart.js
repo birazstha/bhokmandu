@@ -75,6 +75,11 @@ export default function CartContextProvider({ children }) {
           return prevCart.filter((cuisine) => cuisine.id !== cuisineId);
         }
 
+        const totalOrder = cart.reduce((a, b) => a + b.quantity, 0);
+        console.log(totalOrder);
+        if (totalOrder < 2) {
+          alert("all deleted");
+        }
         return prevCart.map((item) =>
           item.id === cuisineId
             ? {

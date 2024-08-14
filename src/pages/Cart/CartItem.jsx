@@ -47,7 +47,6 @@ export default function CartItem({ handleClose, handleOpen, open }) {
         <Btn
           type="link"
           path="/checkout"
-          disabled={cart.length === 0 ? true : false}
           onClick={handleClose}
           appearance="primary"
         >

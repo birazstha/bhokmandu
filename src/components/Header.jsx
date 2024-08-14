@@ -17,9 +17,7 @@ export default function Header() {
   const { profile, logout } = useContext(ProfileContext);
   const { theme, changeTheme } = useContext(ThemeContext);
   const { cart } = useContext(CartContext);
-
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -49,11 +47,15 @@ export default function Header() {
               open={open}
             />
 
-            <Badge content={cart ? cart.length : "0"}>
-              <button onClick={handleOpen}>
-                <i className="fas fa-cart-plus text-2xl text-primary"></i>
-              </button>
-            </Badge>
+            {cart.length > 0 ? (
+              <Badge content={cart ? cart.length : "0"}>
+                <button onClick={handleOpen}>
+                  <i className="fas fa-cart-plus text-2xl text-primary"></i>
+                </button>
+              </Badge>
+            ) : (
+              ""
+            )}
 
             {profile ? (
               <div className="flex gap-2 justify-center">
