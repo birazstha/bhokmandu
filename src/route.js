@@ -43,12 +43,6 @@ export const router = createBrowserRouter([
           {
             path: "orders",
             element: <OrderHistory />,
-            children: [
-              {
-                path: ":id",
-                element: <OrderDetail />,
-              },
-            ],
           },
           {
             path: "favorites",
@@ -58,8 +52,13 @@ export const router = createBrowserRouter([
             path: "appearance",
             element: <Appearance />,
           },
+          {
+            path: "order/:id",
+            element: <OrderDetail />,
+          },
         ],
       },
+
       {
         path: "users",
         element: <UserList />,

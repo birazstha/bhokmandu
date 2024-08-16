@@ -3,10 +3,9 @@ import { ordersApi } from "../../api";
 import { Skeleton } from "@mui/material";
 import { ThemeContext } from "@emotion/react";
 import { Badge } from "rsuite";
-import Button from "../../components/ui/Button";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-export default function OrderHistory(params) {
+export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
@@ -14,24 +13,17 @@ export default function OrderHistory(params) {
   useEffect(() => {
     ordersApi()
       .then((data) => setOrders(data))
-      .finally(() => setLoading(false)); // Ensure loading is set to false
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <div>
       {loading ? (
         <div>
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-          <Skeleton width="100%" height={30} />
-        </div> // Show a loading message or spinner
+          {[...Array(10)].map((_, i) => (
+            <Skeleton key={i} width="100%" height={30} />
+          ))}
+        </div>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
@@ -49,7 +41,6 @@ export default function OrderHistory(params) {
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Delivery Status
                 </th>
-
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Total Amount
                 </th>
@@ -59,41 +50,37 @@ export default function OrderHistory(params) {
               </tr>
             </thead>
             <tbody>
-              {orders &&
-                orders.map((order, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                      {index + 1}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                      {order.code}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                      {order.ordered_at}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                      <Badge
-                        color={order.delivery_status === 1 ? "green" : "blue"}
-                        content={
-                          order.delivery_status === 1 ? "Delivered" : "Pending"
-                        }
-                      />
-                    </td>
-
-                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                      {order.ordered_at}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                      <Button type="link" path={`/profile/orders/${order.id}`}>
-                        <i className="fa fa-eye"></i>
-                      </Button>
-
-                    
-                    </td>
-                  </tr>
-                ))}
+              {orders.map((order, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                    {index + 1}
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                    {order.code}
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                    {order.ordered_at}
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                    <Badge
+                      color={order.delivery_status === 1 ? "green" : "blue"}
+                      content={
+                        order.delivery_status === 1 ? "Delivered" : "Pending"
+                      }
+                    />
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                    {order.total_amount}
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                    <Link to={`/profile/order/${order.id}`}>View Order</Link>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
+          {/* Render the nested route here */}
+          <Outlet />
         </div>
       )}
     </div>

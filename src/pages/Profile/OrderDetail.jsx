@@ -1,11 +1,5 @@
-import { Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export default function OrderHistory() {
-  return (
-    <div>
-      <h2>Order History</h2>
-      {/* Render nested routes here */}
-      <Outlet />
-    </div>
-  );
+export default function OrderDetail(params) {
+  const { id } = useParams();
 }
