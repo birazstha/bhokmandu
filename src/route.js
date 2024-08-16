@@ -12,6 +12,7 @@ import UserList from "./pages/Users/UserList";
 import Appearance from "./pages/Profile/Appearance";
 import Checkout from "./pages/Cart/Checkout";
 import EsewaPayment from "./pages/Esewa";
+import OrderDetail from "./pages/Profile/OrderDetail";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,12 @@ export const router = createBrowserRouter([
           {
             path: "orders",
             element: <OrderHistory />,
+            children: [
+              {
+                path: ":id",
+                element: <OrderDetail />,
+              },
+            ],
           },
           {
             path: "favorites",
@@ -58,11 +65,11 @@ export const router = createBrowserRouter([
         element: <UserList />,
       },
       {
-        path: "/checkout",
+        path: "checkout",
         element: <Checkout />,
       },
       {
-        path: "/esewa",
+        path: "esewa",
         element: <EsewaPayment />,
       },
     ],

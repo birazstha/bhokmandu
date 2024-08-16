@@ -11,8 +11,6 @@ export default function Home(params) {
   const navigate = useNavigate();
   const [cuisines, setCuisines] = useState([]); // Initialize state for cuisines
   const [keyword, setKeyword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { theme } = useContext(ThemeContext);
 
   const handleSearch = debounce((event) => {
     setCuisines([]);
@@ -22,11 +20,9 @@ export default function Home(params) {
   }, 200);
 
   useEffect(() => {
-    setLoading(true);
     loadCuisines(keyword)
       .then((data) => setCuisines(data))
-      .catch((error) => console.error("Error loading cuisines:", error))
-      .finally(() => setLoading(false));
+      .catch((error) => console.error("Error loading cuisines:", error));
   }, [keyword]);
 
   return (

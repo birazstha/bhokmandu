@@ -5,7 +5,7 @@ import { Avatar, Badge, Dropdown, Toggle } from "rsuite";
 import Btn from "../components/ui/Button";
 import CartItem from "../pages/Cart/CartItem";
 import { ThemeContext } from "../context/theme-cart";
-import { CartContext } from "../context/cart";
+import { CartContext } from "../context/cart-context";
 
 const renderToggle = (props, profile) => (
   <div {...props} className="flex items-center">

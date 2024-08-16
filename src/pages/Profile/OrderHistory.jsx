@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { ordersApi } from "../../api";
 import { Skeleton } from "@mui/material";
 import { ThemeContext } from "@emotion/react";
+import { Badge } from "rsuite";
+import Button from "../../components/ui/Button";
+import { Link } from "react-router-dom";
 
 export default function OrderHistory(params) {
   const [orders, setOrders] = useState([]);
@@ -31,77 +34,63 @@ export default function OrderHistory(params) {
         </div> // Show a loading message or spinner
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200  ">
+          <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr>
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Cuisines Ordered
+                  S.N
                 </th>
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Quantity
+                  Code
                 </th>
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Rate
+                  Ordered At
                 </th>
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Total
+                  Delivery Status
+                </th>
+
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Total Amount
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {orders.length > 0 &&
+              {orders &&
                 orders.map((order, index) => (
-                  <>
-                    {order.cuisines.map((cuisine, idx) => (
-                      <tr key={idx}>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                          {cuisine.title}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                          {cuisine.quantity}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                          Rs.{cuisine.rate}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                          Rs.{cuisine.quantity * cuisine.rate}
-                        </td>
-                      </tr>
-                    ))}
-                    <tr className="bg-gray-50">
-                      <td
-                        colSpan="3"
-                        className="px-6 py-4 border-b border-gray-200 text-sm font-semibold text-gray-700 text-right"
-                      >
-                        Grand Total
-                      </td>
-                      <td className="px-6 py-4 border-b border-gray-200 text-sm font-semibold text-gray-700">
-                        Rs.{order.total_amount}
-                      </td>
-                    </tr>
-                    <tr className="bg-gray-50">
-                      <td
-                        colSpan="3"
-                        className="px-6 py-4 border-b border-gray-200 text-sm font-semibold text-gray-700 text-right"
-                      >
-                        Delivery Cost
-                      </td>
-                      <td className="px-6 py-4 border-b border-gray-200 text-sm font-semibold text-gray-700">
-                        -
-                      </td>
-                    </tr>
-                    <tr className="bg-gray-100">
-                      <td
-                        colSpan="3"
-                        className="px-6 py-4 border-b border-gray-200 text-sm font-semibold text-gray-700 text-right"
-                      >
-                        Total
-                      </td>
-                      <td className="px-6 py-4 border-b border-gray-200 text-sm font-semibold text-gray-700">
-                        Rs.{order.total_amount}
-                      </td>
-                    </tr>
-                  </>
+                  <tr key={index}>
+                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                      {index + 1}
+                    </td>
+                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                      {order.code}
+                    </td>
+                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                      {order.ordered_at}
+                    </td>
+                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                      <Badge
+                        color={order.delivery_status === 1 ? "green" : "blue"}
+                        content={
+                          order.delivery_status === 1 ? "Delivered" : "Pending"
+                        }
+                      />
+                    </td>
+
+                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                      {order.ordered_at}
+                    </td>
+                    <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+                      <Button type="link" path={`/profile/orders/${order.id}`}>
+                        <i className="fa fa-eye"></i>
+                      </Button>
+
+                    
+                    </td>
+                  </tr>
                 ))}
             </tbody>
           </table>

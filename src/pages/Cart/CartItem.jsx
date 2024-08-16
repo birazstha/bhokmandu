@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Modal, Button } from "rsuite";
-import { CartContext } from "../../context/cart";
+import { CartContext } from "../../context/cart-context";
 import Btn from "../../components/ui/Button";
 
 export default function CartItem({ handleClose, handleOpen, open }) {
@@ -40,7 +40,7 @@ export default function CartItem({ handleClose, handleOpen, open }) {
           <p className="text-center text-red-500">No items in cart</p>
         )}
         <p className="text-end font-bold text-xl">
-          Rs. {cart.reduce((a, b) => a + b.grand_total, 0)}/-
+          {/* Rs. {cart.reduce((a, b) => a + b.grand_total, 0)}/- */}
         </p>
       </Modal.Body>
       <Modal.Footer>

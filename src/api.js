@@ -1,8 +1,10 @@
 import axios from "axios";
 import { json } from "react-router-dom";
+import Cookies from "js-cookie";
 const baseUrl = process.env.REACT_APP_URL;
+const accessToken = Cookies.get("accessToken");
 
-export const fetchProfile = async (accessToken) => {
+export const fetchProfile = async () => {
   try {
     const resData = await axios.get(`${baseUrl}/profile`, {
       headers: {
@@ -20,7 +22,7 @@ export const userLogin = async (finalData) => {
   try {
     const res = await axios.post(`${baseUrl}/googleLogin`, finalData);
     const accessToken = res.data.data.accessToken;
-    localStorage.setItem("accessToken", accessToken);
+    Cookies.set("accessToken", accessToken, { expires: 7 });
     return await fetchProfile(accessToken);
   } catch (err) {
     console.log(err);
@@ -65,8 +67,6 @@ export const loadUsers = async () => {
 
 export const checkoutApi = async (values, cart) => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
-
     const data = {
       cuisines: cart,
       total_amount: cart.reduce((a, b) => a + b.grand_total, 0),
@@ -89,7 +89,6 @@ export const checkoutApi = async (values, cart) => {
 
 export const ordersApi = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const resData = await axios.get(`${baseUrl}/order-list`, {
       headers: {
         Authorization: `Bearer ${accessToken} `,

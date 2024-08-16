@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Button, Loader, Radio, RadioGroup } from "rsuite";
-import { CartContext } from "../../context/cart";
+import { CartContext } from "../../context/cart-context";
 import { useFormik } from "formik";
 import { checkoutSchema } from "../../schema/checkout-form";
 import { Form, useNavigate } from "react-router-dom";
@@ -160,7 +160,7 @@ export default function Checkout(params) {
           <div className="mt-4 space-y-2">
             <div className="flex justify-between items-center">
               <p className="font-semibold">SUB TOTAL</p>
-              <p>Rs.{cart.reduce((a, b) => a + b.grand_total, 0)}/-</p>
+              {/* <p>Rs.{cart.reduce((a, b) => a + b.grand_total, 0)}/-</p> */}
             </div>
             <div className="flex justify-between items-center">
               <p className="font-semibold">Delivery Charge</p>
@@ -169,7 +169,7 @@ export default function Checkout(params) {
             <div className="flex justify-between items-center">
               <p className="font-semibold text-lg">Grand Total</p>
               <p className="text-lg font-bold">
-                Rs.{cart.reduce((a, b) => a + b.grand_total, 0)}/-
+                {/* Rs.{cart.reduce((a, b) => a + b.grand_total, 0)}/- */}
               </p>
             </div>
           </div>

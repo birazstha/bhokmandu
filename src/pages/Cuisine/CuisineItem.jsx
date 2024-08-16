@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Button from "../../components/ui/Button";
-import { CartContext } from "../../context/cart";
+import { CartContext } from "../../context/cart-context";
 import { ThemeContext } from "../../context/theme-cart";
 
 export default function CuisineItem({ cuisine }) {
