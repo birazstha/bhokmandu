@@ -6,14 +6,11 @@ import { ThemeContext } from "../context/theme-cart";
 
 export default function Login(params) {
   const navigate = useNavigate();
-
   const { profile, login } = useContext(ProfileContext);
   const { theme } = useContext(ThemeContext);
-  console.log(theme);
 
   useEffect(() => {
     if (profile) {
-      console.log(profile);
       navigate("/");
     }
   }, [profile, navigate]);

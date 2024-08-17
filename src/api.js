@@ -17,7 +17,8 @@ export const userLogin = async (finalData) => {
     const res = await Axios.post("googleLogin", finalData);
     const accessToken = res.data.data.accessToken;
     Cookies.set("accessToken", accessToken, { expires: 7 });
-    return await fetchProfile(accessToken);
+    AxiosWithAuth.defaults.headers.Authorization = `Bearer ${accessToken}`;
+    return await fetchProfile();
   } catch (err) {
     console.log(err);
   }

@@ -1,33 +1,43 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { loadCuisines } from "../api";
 import CuisineList from "../pages/Cuisine/CuisineList";
 import Search from "./ui/Search";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { debounce } from "lodash";
-import { Loader } from "rsuite";
-import { ThemeContext } from "../context/theme-cart";
 
-export default function Home(params) {
+export default function Home() {
   const navigate = useNavigate();
-  const [cuisines, setCuisines] = useState([]); // Initialize state for cuisines
-  const [keyword, setKeyword] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const keywordFromUrl = searchParams.get("keyword");
+  const [cuisines, setCuisines] = useState([]);
+  const [keyword, setKeyword] = useState(keywordFromUrl || "");
 
   const handleSearch = debounce((event) => {
-    setCuisines([]);
-    let enteredKeyword = event.target.value;
+    const enteredKeyword = event.target.value;
     setKeyword(enteredKeyword);
     navigate(`/?keyword=${enteredKeyword}`);
   }, 200);
 
   useEffect(() => {
+    if (keywordFromUrl !== keyword) {
+      setKeyword(keywordFromUrl || "");
+    }
+  }, [location, keywordFromUrl, keyword]);
+
+  useEffect(() => {
     loadCuisines(keyword)
-      .then((data) => setCuisines(data))
-      .catch((error) => console.error("Error loading cuisines:", error));
+      .then((data) => {
+        setCuisines(data);
+      })
+      .catch((error) => {
+        console.error("Error loading cuisines:", error);
+      });
   }, [keyword]);
 
   return (
     <>
-      <Search handleSearch={handleSearch} />
+      <Search handleSearch={handleSearch} value={keyword} />
       <CuisineList cuisines={cuisines} />
     </>
   );

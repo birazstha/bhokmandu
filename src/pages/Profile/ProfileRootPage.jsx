@@ -2,20 +2,21 @@ import { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../context/theme-cart";
 import Nav from "./Nav";
-import { ProfileContext } from "../../context/profile-context";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 export default function ProfileRootPage() {
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
-  const { profile } = useContext(ProfileContext);
+
+  const accessToken = Cookies.get("accessToken");
 
   useEffect(() => {
-    if (!profile) {
+    if (!accessToken) {
       toast.success("Login first");
       navigate("/");
     }
-  }, [navigate, profile]);
+  }, [navigate, accessToken]);
 
   return (
     <div className={`${!theme && "text-white"} duration-500 transition-colors`}>
