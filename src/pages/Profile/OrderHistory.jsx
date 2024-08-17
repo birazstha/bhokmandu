@@ -4,6 +4,7 @@ import { Skeleton } from "@mui/material";
 import { ThemeContext } from "@emotion/react";
 import { Badge } from "rsuite";
 import { Link, Outlet } from "react-router-dom";
+import Button from "../../components/ui/Button";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -73,7 +74,9 @@ export default function OrderHistory() {
                     {order.total_amount}
                   </td>
                   <td className="px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
-                    <Link to={`/profile/order/${order.id}`}>View Order</Link>
+                    <Button type="link" path={`/profile/orders/${order.id}`}>
+                      View
+                    </Button>
                   </td>
                 </tr>
               ))}

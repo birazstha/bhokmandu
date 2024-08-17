@@ -9,8 +9,9 @@ export default function SkeletonLoading({ count }) {
 
   return (
     <>
-      {skeletonArray.map((index) => (
+      {skeletonArray.map((_, index) => (
         <div
+          key={index}
           className={`shadow-xl rounded-lg mb-5 ${
             !theme && "bg-[#242527] transition-colors duration-500"
           }`}

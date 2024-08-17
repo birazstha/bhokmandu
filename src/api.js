@@ -1,17 +1,11 @@
-import axios from "axios";
 import { json } from "react-router-dom";
 import Cookies from "js-cookie";
-const baseUrl = process.env.REACT_APP_URL;
-const accessToken = Cookies.get("accessToken");
+
+import Axios, { AxiosWithAuth } from "./axios";
 
 export const fetchProfile = async () => {
   try {
-    const resData = await axios.get(`${baseUrl}/profile`, {
-      headers: {
-        Authorization: `Bearer ${accessToken} `,
-      },
-    });
-
+    const resData = await AxiosWithAuth.get("profile");
     return resData.data.data;
   } catch (err) {
     console.log(err);
@@ -20,7 +14,7 @@ export const fetchProfile = async () => {
 
 export const userLogin = async (finalData) => {
   try {
-    const res = await axios.post(`${baseUrl}/googleLogin`, finalData);
+    const res = await Axios.post("googleLogin", finalData);
     const accessToken = res.data.data.accessToken;
     Cookies.set("accessToken", accessToken, { expires: 7 });
     return await fetchProfile(accessToken);
@@ -31,7 +25,7 @@ export const userLogin = async (finalData) => {
 
 export const loadCuisines = async (keyword) => {
   try {
-    const resData = await axios.get(`${baseUrl}/cuisines?keyword=${keyword}`);
+    const resData = await Axios.get(`cuisines?keyword=${keyword}`);
     return resData.data.data;
   } catch (err) {
     console.log(err);
@@ -47,7 +41,7 @@ export const loadCuisines = async (keyword) => {
 
 export const foodList = async () => {
   try {
-    const resData = await axios.get(`${baseUrl}/cuisines`);
+    const resData = await Axios.get("cuisines");
     const cuisines = resData.data.data;
     const titles = cuisines.map((cuisine) => cuisine.title);
     return titles;
@@ -58,7 +52,7 @@ export const foodList = async () => {
 
 export const loadUsers = async () => {
   try {
-    const resData = await axios.get(`${baseUrl}/users`);
+    const resData = await Axios.get("users");
     return resData.data.data;
   } catch (err) {
     console.log(err);
@@ -74,13 +68,7 @@ export const checkoutApi = async (values, cart) => {
       delivery_address: values.delivery_address,
       special_instructions: values.special_instructions,
     };
-
-    const resData = await axios.post(`${baseUrl}/order`, data, {
-      headers: {
-        Authorization: `Bearer ${accessToken} `,
-      },
-    });
-
+    const resData = await AxiosWithAuth.post("order", data);
     return resData.status;
   } catch (err) {
     console.log(err);
@@ -89,12 +77,18 @@ export const checkoutApi = async (values, cart) => {
 
 export const ordersApi = async () => {
   try {
-    const resData = await axios.get(`${baseUrl}/order-list`, {
-      headers: {
-        Authorization: `Bearer ${accessToken} `,
-      },
-    });
+    const resData = await AxiosWithAuth.get("order-list");
 
+    return resData.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const orderDetailApi = async (id) => {
+  try {
+    const resData = await AxiosWithAuth.get(`order/${id}`);
+    console.log(resData.data.data);
     return resData.data.data;
   } catch (err) {
     console.log(err);
